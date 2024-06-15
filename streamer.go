@@ -1,6 +1,7 @@
 package main
 
 import (
+	"hls-streamer/grpcClient"
 	"hls-streamer/logging"
 	ristHandler "hls-streamer/rist_handler"
 	"hls-streamer/router"
@@ -24,8 +25,11 @@ func main() {
 
 	ristUrlUpdateChan := make(chan string)
 
+	grpcClient := grpcClient.GrpcClient{}
+	grpcClient.Init(logger)
+
 	ristHandler := ristHandler.RistHandlerStruct{}
-	ristHandler.Init(logger, ristUrlUpdateChan)
+	ristHandler.Init(logger, ristUrlUpdateChan, grpcClient)
 
 	server := server.ServerStruct{}
 	server.Init(logger, ristUrlUpdateChan)

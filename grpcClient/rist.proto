@@ -1,0 +1,40 @@
+syntax="proto3";
+
+package RistApp;
+
+option go_package="./grpcClient";
+
+
+message AppStatusResponse {
+    AppResponse app_status = 1;
+
+}
+
+enum AppResponse{
+    UNKNOWN = 0;
+    RUNNING = 1;
+    STOPPED = 2;
+    SUCCESSFULL_UPDATE = 3;
+}
+
+message RistAppconfig{
+    string InputType = 1;
+    string InputUrl= 2;
+    string InputPort = 3;
+    string Mode= 4;
+    string OutputType = 5;
+    string OutputUrl = 6;
+    string OutputPort = 7;
+    string Profile = 8;
+    string Encryption = 9;
+    string Secret = 10;
+}
+
+message Empty{}
+
+service RistApp{
+    rpc StartRistApp(RistAppconfig) returns (AppStatusResponse) {}
+    rpc StopRistApp(Empty) returns (AppStatusResponse) {}
+    rpc StatusRistApp(Empty) returns (AppStatusResponse) {}
+    rpc UpdateRistApp(RistAppconfig) returns (AppStatusResponse) {}
+}

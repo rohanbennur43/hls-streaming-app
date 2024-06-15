@@ -14,6 +14,8 @@ type RouterStruct struct {
 
 func (r *RouterStruct) Init(logger *zap.SugaredLogger) {
 	r.logger = logger
+	r.logger.Info("Successfully initialised router")
+
 	r.Router = mux.NewRouter()
 }
 
