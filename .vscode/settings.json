@@ -1,0 +1,16 @@
+{
+  "editor.gotoLocation.multipleDeclarations": "goto",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.codeActionsOnSave": {
+      "source.organizeImports": "never"
+  },
+  "editor.formatOnSave": false,
+  "[go]": {
+      "editor.insertSpaces": true,
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "golang.go"
+  },
+  "editor.wordWrapColumn": 120,
+  "go.gopath": "/home/rohanb/go",
+  "cmake.sourceDirectory": "/home/rohanb/amagi/vodor/packager/build_re_timestamper",
+}
