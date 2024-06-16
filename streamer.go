@@ -1,6 +1,7 @@
 package main
 
 import (
+	ffmpeghlsstreamer "hls-streamer/ffmpeg_hls_streamer"
 	"hls-streamer/grpcClient"
 	"hls-streamer/logging"
 	ristHandler "hls-streamer/rist_handler"
@@ -24,12 +25,15 @@ func main() {
 	}
 
 	ristUrlUpdateChan := make(chan string)
-
+	InputUrlChan := make(chan string)
 	grpcClient := grpcClient.GrpcClient{}
 	grpcClient.Init(logger)
 
+	hlsStreamerInfoStruct := ffmpeghlsstreamer.HlsStreamerStruct{}
+	hlsStreamerInfoStruct.Init(logger, InputUrlChan)
+
 	ristHandler := ristHandler.RistHandlerStruct{}
-	ristHandler.Init(logger, ristUrlUpdateChan, grpcClient)
+	ristHandler.Init(logger, ristUrlUpdateChan, grpcClient, InputUrlChan)
 
 	server := server.ServerStruct{}
 	server.Init(logger, ristUrlUpdateChan)
