@@ -26,7 +26,7 @@ func (hlsStreamer *HlsStreamerStruct) Init(logger *zap.SugaredLogger, hlsInputUr
 
 // ffmpeg  -i udp://127.0.0.1:2222 -c copy -f hls -hls_time 5 playlist.m3u8
 func (HlsStreamer *HlsStreamerStruct) GetShellCommandArgs(hlsInputUrl string) string {
-	shellCommandargs := fmt.Sprintf("-i %s -c copy -f hls -hls_time 4 /home/rohanb/rohan_projects/go_projects/hls-streaming-app/hls-stream-files/playlist.m3u8", hlsInputUrl)
+	shellCommandargs := fmt.Sprintf("-i %s -c:v h264 -c:a copy -f hls -hls_time 4 /home/rohanb/rohan_projects/go_projects/hls-streaming-app/hls-stream-files/playlist.m3u8", hlsInputUrl)
 	return shellCommandargs
 
 }

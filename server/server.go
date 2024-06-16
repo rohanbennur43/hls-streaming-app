@@ -31,3 +31,8 @@ func (s *ServerStruct) UpdateRistUrl(w http.ResponseWriter, r *http.Request) {
 	return
 
 }
+
+func (s *ServerStruct) FrontEndPage(w http.ResponseWriter, r *http.Request) {
+	filepath := "streamer-frontend/index.html"
+	http.ServeFile(w, r, filepath)
+}

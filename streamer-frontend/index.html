@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HLS Stream Player</title>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    
+    #video {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>HLS Stream Player</h1>
+  <video id="video" controls autoplay></video>
+
+  <script>
+    const video = document.getElementById("video");
+    const hlsUrl = "/hls-stream-files/playlist.m3u8"; // Adjust the path as necessary
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(hlsUrl);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.muted = false;
+        video.play();
+        console.log("HLS stream successfully loaded");
+      });
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        console.error("HLS error:", event, data);
+      });
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = hlsUrl;
+      video.addEventListener("canplay", () => {
+        video.play();
+        console.log("Native HLS playback");
+      });
+    } else {
+      video.innerHTML = "HLS is not supported in this browser";
+      console.error("HLS is not supported in this browser");
+    }
+  </script>
+</body>
+</html>
